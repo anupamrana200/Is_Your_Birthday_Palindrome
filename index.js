@@ -1,3 +1,8 @@
+const userDob = document.querySelector("#user-dob");
+const showBtn = document.querySelector("#show-btn");
+const output = document.querySelector("#output");
+
+
 function reverseString(str){
     var charList = str.split("");
     var reverseList = charList.reverse();
@@ -35,6 +40,8 @@ function allFormOfDate(date){
     var ddmmyy = strDate.day + strDate.month + strDate.year.slice(-2);
     var mmddyy = strDate.month + strDate.day + strDate.year.slice(-2);
     var yymmdd = strDate.year.slice(-2) + strDate.month + strDate.day;
+
+    console.log([ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yymmdd])
 
     return [ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yymmdd];
 }
@@ -179,29 +186,40 @@ function getPreviousPalindromeDate(date){
     return [countDay, preDate]
 }
 
-function main(date){
-    if(checkPalindromeForAllDateFormats(date)){
-        console.log("Your Birthday is Palindrome");
+function showMsg(next, previous){
+    if( next[0] <= previous[0]){
+        output.innerText = "😔OOPS! You Missed "+next[0]+" Days,The Nearest Palindrome Date is: "+next[1].day+"-"+next[1].month+"-"+next[1].year
     } else {
-        var nextPalinDate = getNextPalindromeDate(date);
-        console.log("Next Palindrome Number: ")
-        console.log("Day: "+nextPalinDate[0])
-        console.log("Date: "+nextPalinDate[1].day,nextPalinDate[1].month,nextPalinDate[1].year)
-
-        var prePalinDate = getPreviousPalindromeDate(date);
-        console.log("Previous Palindrome Number: ")
-        console.log("Day: "+prePalinDate[0])
-        console.log("Date: "+prePalinDate[1].day,prePalinDate[1].month,prePalinDate[1].year)
+        output.innerText = "😔OOPS! You Missed "+previous[0]+" Days,The Nearest Palindrome Date is: "+previous[1].day+"-"+previous[1].month+"-"+previous[1].year
     }
 }
 
 
-var date = {
-    day : 31,
-    month: 12,
-    year: 2020
+function main(date){
+    if(checkPalindromeForAllDateFormats(date)){
+        output.innerText = "🤩YEY! Your Birthday is Palindrome"
+    } else {
+        var nextPalinDate = getNextPalindromeDate(date);
+
+        var prePalinDate = getPreviousPalindromeDate(date);
+        showMsg(nextPalinDate, prePalinDate);
+    }
 }
 
-main(date)
+
+function showBtnClickHandler(){
+    var splitDob = userDob.value.split("-")
+    if(splitDob[0]){
+        var date = {
+            day : Number(splitDob[2]),
+            month: Number(splitDob[1]),
+            year: Number(splitDob[0])
+        }
+        main(date)
+
+    }
+}
+
+showBtn.addEventListener('click', showBtnClickHandler)
 
 

@@ -1,0 +1,64 @@
+*{
+    margin: 0px;
+    padding: 0px
+}
+
+:root{
+    --primary-color:#4f46e5;
+    --bg-color:#dbeafe;
+}
+
+body{
+    background-color: var(--bg-color);
+}
+
+.container{
+    margin: auto;
+    width: 70vh;
+    text-align: center;
+}
+
+.heading{
+    margin-top: 3rem;
+}
+
+.enter-birthday{
+    margin-top: 3rem;
+}
+
+#user-dob{
+    width: 13rem;
+    margin-top: 1rem;
+    text-align: center;
+    padding: 0.4rem;
+    border-radius: 0.7rem;
+    border: 2px solid var(--primary-color);
+}
+
+#show-btn{
+    margin-top: 2rem;
+    width: 6rem;
+    padding: 0.6rem;
+    border-radius:1rem;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.footer{
+    text-align: center;
+    margin-top: 18rem;
+}
+
+.social-logo{
+    width: 30px;
+    margin-top: 1rem;
+}
+
+#output{
+    margin-top: 2rem;
+    font-size: 17px;
+    font-weight: bold;
+}
