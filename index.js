@@ -109,16 +109,90 @@ function getNextPalindromeDate(date){
 
     while(1){
         countDay++;
-        var dateStr = numberToStringConversion(nextDate);
-        var resultList = checkPalindromeForAllDateFormats(dateStr);
+        var plaindromeCheck = checkPalindromeForAllDateFormats(nextDate);
 
-        // for (let i=0; i<resultList.length; i++){
-        //     if(resultList[i])
-        // }
-        console.log(resultList);
-        break;
+        if(plaindromeCheck){
+            break;
+        }
+        nextDate = getNextDate(nextDate);
+    }
+    return [countDay, nextDate]
+}
+
+function getPreviousDate(date){
+    var day = date.day -1;
+    var month = date.month;
+    var year = date.year;
+
+    var daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+    if(month === 3){
+        if(leapYearCheck(year)){
+            if(day < 1){
+                day = 29;
+                month = 2;
+            }
+        } else {
+            if(day < 1){
+                day = 28;
+                month = 2;
+            }
+        }
+    } else {
+        if(day < 1){
+            if(month < 2){
+                day = daysInMonths[11];
+                month--;
+            } else {
+                day = daysInMonths[month-2];
+                month--;   
+            }
+        }
     }
 
+    if(month < 1){
+        month = 12;
+        year--;
+    }
+
+    return{
+        day: day,
+        month: month,
+        year: year
+    }
+}
+
+
+function getPreviousPalindromeDate(date){
+    var preDate = getPreviousDate(date);
+    var countDay = 0;
+
+    while(1){
+        countDay++;
+        var plaindromeCheck = checkPalindromeForAllDateFormats(preDate);
+
+        if(plaindromeCheck){
+            break;
+        }
+        preDate = getPreviousDate(preDate);
+    }
+    return [countDay, preDate]
+}
+
+function main(date){
+    if(checkPalindromeForAllDateFormats(date)){
+        console.log("Your Birthday is Palindrome");
+    } else {
+        var nextPalinDate = getNextPalindromeDate(date);
+        console.log("Next Palindrome Number: ")
+        console.log("Day: "+nextPalinDate[0])
+        console.log("Date: "+nextPalinDate[1].day,nextPalinDate[1].month,nextPalinDate[1].year)
+
+        var prePalinDate = getPreviousPalindromeDate(date);
+        console.log("Previous Palindrome Number: ")
+        console.log("Day: "+prePalinDate[0])
+        console.log("Date: "+prePalinDate[1].day,prePalinDate[1].month,prePalinDate[1].year)
+    }
 }
 
 
@@ -128,6 +202,6 @@ var date = {
     year: 2020
 }
 
-console.log(getNextPalindromeDate(date));
+main(date)
 
 
